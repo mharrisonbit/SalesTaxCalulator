@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SalesTaxCalculator.Views.MainPage"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             Visual="Material">
+    <ScrollView Margin="10,20">
+        <Grid ColumnDefinitions="50*,50*"
+              RowDefinitions="Auto, 80, 60">
+            <Frame Grid.Column="0"
+                   Grid.Row="0">
+                <Grid RowDefinitions="40,90,80,80,80,80">
+                    <Label Text="From Address"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           HorizontalOptions="CenterAndExpand"/>
+                    <Frame Grid.Row="1"
+                           BackgroundColor="LightGray">
+                        <Label FontSize="Micro">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Source={x:Reference StreetTxt}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Source={x:Reference CityTxt}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text=", "/>
+                                    <Span Text="{Binding Source={x:Reference StateTxt}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Source={x:Reference ZipCodeTxt}, Path=Text, Mode=TwoWay}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Frame>
+                    <Entry Placeholder="Street Address"
+                           Text="{Binding StreetAddressTxt, Mode=TwoWay}"
+                           x:Name="StreetTxt"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           FontSize="Micro"/>
+                    <Entry Placeholder="City"
+                           Text="{Binding Location.Locality, Mode=TwoWay}"
+                           x:Name="CityTxt"
+                           Grid.Row="3"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="State"
+                           Text="{Binding Location.AdminArea}"
+                           x:Name="StateTxt"
+                           Grid.Row="4"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="Zip Code"
+                           Text="{Binding Location.PostalCode, Mode=TwoWay}"
+                           x:Name="ZipCodeTxt"
+                           Grid.Row="5"
+                           Grid.Column="0"/>
+                </Grid>
+            </Frame>
+            <Frame Grid.Column="1"
+                   Grid.Row="0">
+                <Grid RowDefinitions="40,90,80,80,80,80,80,80">
+                    <Label Text="To Address"
+                           Grid.Row="0"
+                           HorizontalOptions="CenterAndExpand"
+                           FontAttributes="Bold"/>
+                    <Frame Grid.Row="1"
+                           BackgroundColor="LightGray">
+                        <Label FontSize="Micro">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Source={x:Reference RecieverStreetTxt}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Source={x:Reference RecieverCityTxt}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text=", "/>
+                                    <Span Text="{Binding Source={x:Reference RecieverStatext}, Path=Text, Mode=TwoWay}"/>
+                                    <Span Text="&#x0a;"/>
+                                    <Span Text="{Binding Source={x:Reference RecieverZipCodeTxt}, Path=Text, Mode=TwoWay}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Frame>
+                    <Entry Placeholder="Street Address"
+                           Text="{Binding RecieverStreetAddressTxt}"
+                           x:Name="RecieverStreetTxt"
+                           Grid.Row="2"
+                           Grid.Column="0"
+                           FontSize="Micro"/>
+                    <Entry Placeholder="City"
+                           Text="{Binding ReceieversPlaceMark.Locality}"
+                           x:Name="RecieverCityTxt"
+                           Grid.Row="3"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="State"
+                           Text="{Binding ReceieversPlaceMark.AdminArea}"
+                           x:Name="RecieverStatext"
+                           Grid.Row="4"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="Zip Code"
+                           Text="{Binding ReceieversPlaceMark.PostalCode}"
+                           x:Name="RecieverZipCodeTxt"
+                           Grid.Row="5"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="Shipping Cost"
+                           Text="{Binding ShippingCostTxt}"
+                           Grid.Row="6"
+                           Grid.Column="0"/>
+                    <Entry Placeholder="Item Price"
+                           Text="{Binding ItemCostTxt}"
+                           Grid.Row="7"
+                           Grid.Column="0"/>
+                </Grid>
+            </Frame>
+            <Label Text="{Binding TotalTxt, StringFormat='Combined Tax Rate {0}%'}"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   FontAttributes="Bold"/>
+            <Label FontSize="Small"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   FontAttributes="Bold">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding ShippingTaxes.Tax.AmountToCollect, StringFormat='Tax ${0}'}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding ShippingTaxes.Tax.TaxableAmount, StringFormat='Taxable ${0}'}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Button Text="Find Tax Rate"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    Command="{Binding FindTaxRateBtn}"/>
+            <Button Text="Figure Tax For Order"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    Command="{Binding FigureTaxForOrderBtn}"/>
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="True"
+                               Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

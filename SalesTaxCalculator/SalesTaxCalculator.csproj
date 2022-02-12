@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.7.1" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2337" />
+    <PackageReference Include="Polly" Version="7.2.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Prism.DryIoc.Forms" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Xamarin.Essentials.Interfaces" />
+    <None Remove="Xamarin.Forms.Visual.Material" />
+    <None Remove="Polly" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+</Project>
