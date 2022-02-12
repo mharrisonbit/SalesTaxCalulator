@@ -35,7 +35,7 @@ namespace SalesTaxCalculator.Implementations
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Token token=\"{authToken}\"");
             var response = await Policy
                 .Handle<HttpRequestException>()
-                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (result, timeSpan, retryCount, context) =>
+                .WaitAndRetryAsync(0, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (result, timeSpan, retryCount, context) =>
                 {
                 })
                 .ExecuteAsync(() => httpClient.SendAsync(request));
@@ -44,9 +44,6 @@ namespace SalesTaxCalculator.Implementations
             {
                 details = await response.Content.ReadAsStringAsync();
             }
-            response.Dispose();
-            request.Dispose();
-            httpClient.Dispose();
 
             return details;
         }
@@ -64,15 +61,13 @@ namespace SalesTaxCalculator.Implementations
 
             var response = await Policy
                 .Handle<HttpRequestException>()
-                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (result, timeSpan, retryCount, context) => { })
+                .WaitAndRetryAsync(0, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (result, timeSpan, retryCount, context) => { })
                 .ExecuteAsync(() => httpClient.SendAsync(request));
 
             if (response.IsSuccessStatusCode)
             {
                 details = await response.Content.ReadAsStringAsync();
             }
-            response.Dispose();
-            httpClient.Dispose();
 
             return details;
         }
