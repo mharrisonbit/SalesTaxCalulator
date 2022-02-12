@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculator", "Sales
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{60FF582F-7497-4B6E-9E4A-41CE7CAEA6DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTaxCalculator.Tests", "SalesTaxCalculator.Tests\SalesTaxCalculator.Tests.csproj", "{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,18 @@ Global
 		{3173D282-CA94-4C0D-B10D-522D1BA5346A}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{3173D282-CA94-4C0D-B10D-522D1BA5346A}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{3173D282-CA94-4C0D-B10D-522D1BA5346A}.Release|iPhone.Build.0 = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A83F9B2D-4C6D-4751-AE89-76436F0ABA8C}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

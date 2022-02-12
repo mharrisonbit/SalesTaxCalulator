@@ -22,6 +22,7 @@ namespace SalesTaxCalculator.ViewModels
 
         public DelegateCommand FindTaxRateBtn { get; private set; }
         public DelegateCommand FigureTaxForOrderBtn { get; private set; }
+        public DelegateCommand RefreshLocationCmd { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService, IGetDataFromApi callApi, IGeolocation geoLocation, IPermissions permissions, IGeocoding geocoding) : base(navigationService)
         {
@@ -37,7 +38,9 @@ namespace SalesTaxCalculator.ViewModels
 
             FindTaxRateBtn = new DelegateCommand(async () => await FindTaxRateCmd()).ObservesCanExecute(() => IsEnabled);
             FigureTaxForOrderBtn = new DelegateCommand(async () => await FigureTaxForOrderCmd()).ObservesCanExecute(() => IsEnabled);
-        }
+            RefreshLocationCmd = new DelegateCommand(async ()=> await GetLocationAsync());
+
+    }
 
         private Location userLocation;
         private IEnumerable<Placemark> tempLocations;
@@ -150,7 +153,9 @@ namespace SalesTaxCalculator.ViewModels
                 //TODO convert the shipping to float
                 float.TryParse(ShippingCostTxt, out var shippingAmountFlt);
                 float.TryParse(ItemCostTxt, out var totalAmountFlt);
+
                 ReceieversPlaceMark.AdminArea = GetStateAbrevation(ReceieversPlaceMark.AdminArea);
+
                 JObject orderInfo = new JObject
                 {
                     { "from_street", StreetAddressTxt },
@@ -244,61 +249,166 @@ namespace SalesTaxCalculator.ViewModels
 
         private string GetStateAbrevation(string state)
         {
-            string stateAbrv = state switch
+            string stateAbrv;
+            switch (state)
             {
-                "Alabama" => "AL",
-                "Alaska" => "AK",
-                "Arizona" => "AZ",
-                "Arkansas" => "AR",
-                "California" => "CA",
-                "Colorado" => "CO",
-                "Connecticut" => "CT",
-                "Delaware" => "DE",
-                "Florida" => "FL",
-                "Georgia" => "GA",
-                "Hawaii" => "HI",
-                "Idaho" => "ID",
-                "Illinois" => "IL",
-                "Indiana" => "IN",
-                "Iowa" => "IA",
-                "Kansas" => "KS",
-                "Kentucky" => "KY",
-                "Louisiana" => "LA",
-                "Maine" => "ME",
-                "Maryland" => "MD",
-                "Massachusetts" => "MA",
-                "Michigan" => "MI",
-                "Minnesota" => "MN",
-                "Mississippi" => "MS",
-                "Missouri" => "MO",
-                "Montana" => "MT",
-                "Nebraska" => "NE",
-                "Nevada" => "NV",
-                "Hampshire" => "NH",
-                "New Jersey" => "NJ",
-                "New Mexico" => "NM",
-                "New York" => "NY",
-                "North Carolina" => "NC",
-                "North Dakota" => "ND",
-                "Ohio" => "OH",
-                "Oklahoma" => "OK",
-                "Pennsylvania" => "PA",
-                "Oregon" => "OR",
-                "Rhode Island" => "RI",
-                "South Carolina" => "SC",
-                "South Dakota" => "SD",
-                "Tennessee" => "TN",
-                "Utah" => "UT",
-                "Vermont" => "VT",
-                "Virginia" => "VA",
-                "Washington" => "WA",
-                "West Virginia" => "WV",
-                "Wisconsin" => "WI",
-                "Wyoming" => "WY",
-                "Texas" => "TX",
-                "District of Columbia" => "DC",
-                _ => state,
-            };
+                case "Alabama":
+                    stateAbrv = "AL";
+                    break;
+                case "Alaska":
+                    stateAbrv = "AK";
+                    break;
+                case "Arizona":
+                    stateAbrv = "AZ";
+                    break;
+                case "Arkansas":
+                    stateAbrv = "AR";
+                    break;
+                case "California":
+                    stateAbrv = "CA";
+                    break;
+                case "Colorado":
+                    stateAbrv = "CO";
+                    break;
+                case "Connecticut":
+                    stateAbrv = "CT";
+                    break;
+                case "Delaware":
+                    stateAbrv = "DE";
+                    break;
+                case "Florida":
+                    stateAbrv = "FL";
+                    break;
+                case "Georgia":
+                    stateAbrv = "GA";
+                    break;
+                case "Hawaii":
+                    stateAbrv = "HI";
+                    break;
+                case "Idaho":
+                    stateAbrv = "ID";
+                    break;
+                case "Illinois":
+                    stateAbrv = "IL";
+                    break;
+                case "Indiana":
+                    stateAbrv = "IN";
+                    break;
+                case "Iowa":
+                    stateAbrv = "IA";
+                    break;
+                case "Kansas":
+                    stateAbrv = "KS";
+                    break;
+                case "Kentucky":
+                    stateAbrv = "KY";
+                    break;
+                case "Louisiana":
+                    stateAbrv = "LA";
+                    break;
+                case "Maine":
+                    stateAbrv = "ME";
+                    break;
+                case "Maryland":
+                    stateAbrv = "MD";
+                    break;
+                case "Massachusetts":
+                    stateAbrv = "MA";
+                    break;
+                case "Michigan":
+                    stateAbrv = "MI";
+                    break;
+                case "Minnesota":
+                    stateAbrv = "MN";
+                    break;
+                case "Mississippi":
+                    stateAbrv = "MS";
+                    break;
+                case "Missouri":
+                    stateAbrv = "MO";
+                    break;
+                case "Montana":
+                    stateAbrv = "MT";
+                    break;
+                case "Nebraska":
+                    stateAbrv = "NE";
+                    break;
+                case "Nevada":
+                    stateAbrv = "NV";
+                    break;
+                case "Hampshire":
+                    stateAbrv = "NH";
+                    break;
+                case "New Jersey":
+                    stateAbrv = "NJ";
+                    break;
+                case "New Mexico":
+                    stateAbrv = "NM";
+                    break;
+                case "New York":
+                    stateAbrv = "NY";
+                    break;
+                case "North Carolina":
+                    stateAbrv = "NC";
+                    break;
+                case "North Dakota":
+                    stateAbrv = "ND";
+                    break;
+                case "Ohio":
+                    stateAbrv = "OH";
+                    break;
+                case "Oklahoma":
+                    stateAbrv = "OK";
+                    break;
+                case "Pennsylvania":
+                    stateAbrv = "PA";
+                    break;
+                case "Oregon":
+                    stateAbrv = "OR";
+                    break;
+                case "Rhode Island":
+                    stateAbrv = "RI";
+                    break;
+                case "South Carolina":
+                    stateAbrv = "SC";
+                    break;
+                case "South Dakota":
+                    stateAbrv = "SD";
+                    break;
+                case "Tennessee":
+                    stateAbrv = "TN";
+                    break;
+                case "Utah":
+                    stateAbrv = "UT";
+                    break;
+                case "Vermont":
+                    stateAbrv = "VT";
+                    break;
+                case "Virginia":
+                    stateAbrv = "VA";
+                    break;
+                case "Washington":
+                    stateAbrv = "WA";
+                    break;
+                case "West Virginia":
+                    stateAbrv = "WV";
+                    break;
+                case "Wisconsin":
+                    stateAbrv = "WI";
+                    break;
+                case "Wyoming":
+                    stateAbrv = "WY";
+                    break;
+                case "Texas":
+                    stateAbrv = "TX";
+                    break;
+                case "District of Columbia":
+                    stateAbrv = "DC";
+                    break;
+                default:
+                    stateAbrv = state;
+                    break;
+            }
             return stateAbrv;
         }
     }
