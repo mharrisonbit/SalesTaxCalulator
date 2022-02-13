@@ -7,9 +7,10 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              Visual="Material">
-    <ScrollView Margin="10,20">
+    <ScrollView>
         <Grid ColumnDefinitions="50*,50*"
-              RowDefinitions="Auto, 80, 60">
+              RowDefinitions="Auto, 80, 60"
+              Padding="10">
             <Frame Grid.Column="0"
                    Grid.Row="0">
                 <Grid RowDefinitions="40,90,80,80,80,80">
@@ -138,6 +139,7 @@
                     Grid.Column="1"
                     BorderColor="Black"
                     BorderWidth="1"
+                    FontSize="Micro"
                     Command="{Binding FigureTaxForOrderBtn}"/>
             <ActivityIndicator IsVisible="{Binding IsBusy}"
                                IsRunning="True"
